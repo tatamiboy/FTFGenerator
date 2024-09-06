@@ -1,0 +1,14 @@
+.directory
+.vscode/
+env/
+__pycache__/
+dnn/
+cascade/
+OFSextensions/MyTools/
+
+*.prototxt
+*.caffemodel
+*.xml
+
+batch.sh
+test.py
