@@ -18,7 +18,7 @@ class GUI() :
         self.__root = tk.Tk() 
 
         self.__root.geometry(settings.MAIN_WINDOW_SIZE)
-        self.__root.title("FPTF Generator")
+        self.__root.title("FTFGenerator")
 
         self.__root.update()
 
