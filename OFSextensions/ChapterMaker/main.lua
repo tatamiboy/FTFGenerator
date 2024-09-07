@@ -1,21 +1,72 @@
 ------------------------------------------------------------------------------------
 -- globals
 ------------------------------------------------------------------------------------
+---言語切り替え---
+_lang = "en" 
+
 _chapterExportDir = ""
 _chapterOverwrite = false
 
   -- 方向指定. FTFGのインデックスと順番を揃える
-_chapterDirectionIdx = {txtTopBottom,
-                        txtBottomTop,
-                        txtRightLeft,
-                        txtLeftRight,
-                        txtTopRightBottomLeft,
-                        txtBottomLeftTopRight,
-                        txtBottomRightTopLeft,
-                        txtTopLeftBottomRight}
+_chapterDirectionIdx = {_txtTopBottom,
+                        _txtBottomTop,
+                        _txtRightLeft,
+                        _txtLeftRight,
+                        _txtTopRightBottomLeft,
+                        _txtBottomLeftTopRight,
+                        _txtBottomRightTopLeft,
+                        _txtTopLeftBottomRight}
 
----言語切り替え---
-_lang = "en" 
+if _lang == "jp" then
+  _txtTitle = "チャプターを作成"
+  _txtExportdir = "保存先"
+  _txtOverwrite = "上書きする"
+  _txtExport = "保存"
+  _txtStart = "チャプター開始(100-0)"
+  _txtEnd = "チャプター終了"
+  _txtEndFailed = "エラー: チャプター終了を設定できませんでした。チャプター開始が正しくありません。"
+  _txtTopBottom = "上-下"
+  _txtBottomTop = "下-上"
+  _txtRightLeft = "右-左"
+  _txtLeftRight = "左-右"
+  _txtTopRightBottomLeft = "右上-左下"
+  _txtBottomLeftTopRight = "左下-右上"
+  _txtBottomRightTopLeft = "右下-左上"
+  _txtTopLeftBottomRight = "左上-右下"
+  _txtFailed = "エラー: 保存できませんでした。ログを確認してください。"
+  _tooltipTxt = "FPTFGenerator用チャプターファイルを作成します。"
+  _tooltipTxtStart = "現在位置にチャプター開始点をセットします。"
+  _tooltipTxtEnd = "現在位置にチャプター終了点をセットします"
+  _txtChapterNotClosed = "エラー:チャプターが閉じていません。"
+  _txtPreviousChapterNotClosed = "エラー:前のチャプターが閉じていません。"
+  _txtFileExist = "エラー:同名ファイルが存在するか、保存先に書き込めません。"
+  _txtPointsTooClose = "情報: 頂点が近すぎます。"
+else
+  _txtTitle = "Create chapters"
+  _txtExportdir = "Export destination"
+  _txtOverwrite = "Overwrite if existing."
+  _txtExport = "Export"
+  _txtStart = "Chapter start(100-0)"
+  _txtEnd = "Chapter end"
+  _txtEndFailed = "Error: Could not set chapter end. Bad chapter start."
+  _txtTopBottom = "Top-Bottom"
+  _txtBottomTop = "Bottom-Top"
+  _txtRightLeft = "Right-Left"
+  _txtLeftRight = "Left-Right"
+  _txtTopRightBottomLeft = "Top Right-Bottom Left"
+  _txtBottomLeftTopRight = "Bottom Left-Top Right"
+  _txtBottomRightTopLeft = "Bottom Right-Top Left"
+  _txtTopLeftBottomRight = "Top Left-Bottom Right"
+  _txtFailed = "Error: Failed to export. Please check the log."
+  _tooltipTxt = "Create a chapter file for the FPTFGenerator. Set the chapter start to 0 and the chapter end to 100."
+  _tooltipTxtStart = "Sets the chapter start at the current position."
+  _tooltipTxtEnd = "Sets the chapter end at the current position."
+  _txtChapterNotClosed = "Error: The chapter is not closed."
+  _txtPreviousChapterNotClosed = "Error: Previous chapter not closed"
+  _txtFileExist = "Error: A file with the same name exists or the destination cannot be written to."
+  _txtPointsTooClose = "Info: Points are too close."
+end
+
 
 ---初期化---
 function init()
@@ -29,73 +80,30 @@ end
 ---GUI---
 function gui()
   ---チャプターを作成---
-  if _lang == "jp" then
-    txtTitle = "チャプターを作成"
-    txtExportdir = "保存先"
-    txtOverwrite = "上書きする"
-    txtExport = "保存"
-    txtStart = "チャプター開始(100-0)"
-    txtEnd = "チャプター終了"
-    txtEndFailed = "チャプター終了を設定できませんでした。チャプター開始が正しくありません。"
-    txtTopBottom = "上-下"
-    txtBottomTop = "下-上"
-    txtRightLeft = "右-左"
-    txtLeftRight = "左-右"
-    txtTopRightBottomLeft = "右上-左下"
-    txtBottomLeftTopRight = "左下-右上"
-    txtBottomRightTopLeft = "右下-左上"
-    txtTopLeftBottomRight = "左上-右下"
-    txtFailed = "保存できませんでした。ログを確認してください。"
-    tooltipTxt = "FPTFGenerator用チャプターファイルを作成します。"
-    tooltipTxtStart = "現在位置にチャプター開始点をセットします。"
-    tooltipTxtEnd = "現在位置にチャプター終了点をセットします"
-  else
-    txtTitle = "Create chapters"
-    txtExportdir = "Export destination"
-    txtOverwrite = "Overwrite if existing."
-    txtExport = "Export"
-    txtStart = "Chapter start(100-0)"
-    txtEnd = "Chapter end"
-    txtEndFailed = "Could not set chapter end. Bad chapter start."
-    txtTopBottom = "Top-Bottom"
-    txtBottomTop = "Bottom-Top"
-    txtRightLeft = "Right-Left"
-    txtLeftRight = "Left-Right"
-    txtTopRightBottomLeft = "Top Right-Bottom Left"
-    txtBottomLeftTopRight = "Bottom Left-Top Right"
-    txtBottomRightTopLeft = "Bottom Right-Top Left"
-    txtTopLeftBottomRight = "Top Left-Bottom Right"
-    txtFailed = "Failed to export. Please check the log."
-    tooltipTxt = "Create a chapter file for the FPTFGenerator. Set the chapter start to 0 and the chapter end to 100."
-    tooltipTxtStart = "Sets the chapter start at the current position."
-    tooltipTxtEnd = "Sets the chapter end at the current position."
-  end
+  ofs.Text(_txtTitle)
+  ofs.Tooltip(_tooltipTxt)
+  _chapterExportDir = ofs.Input(_txtExportdir, _chapterExportDir)
+  _chapterOverwrite = ofs.Checkbox(_txtOverwrite, _chapterOverwrite)
 
-  ofs.Text(txtTitle)
-  ofs.Tooltip(tooltipTxt)
-  _chapterExportDir = ofs.Input(txtExportdir, _chapterExportDir)
-  _chapterOverwrite = ofs.Checkbox(txtOverwrite, _chapterOverwrite)
+  ofs.Text(_txtStart)
+  ofs.Tooltip(_tooltipTxtStart)
+  btnTopBottom = ofs.Button(_txtTopBottom)
+  ofs.SameLine()
+  btnBottomTop = ofs.Button(_txtBottomTop)
+  ofs.SameLine()
+  btnRightLeft = ofs.Button(_txtRightLeft)
+  ofs.SameLine()
+  btnLeftRight = ofs.Button(_txtLeftRight)
+  btnTopRightBottomLeft = ofs.Button(_txtTopRightBottomLeft)
+  ofs.SameLine()
+  btnBottomLeftTopRight = ofs.Button(_txtBottomLeftTopRight)
+  btnBottomRightTopLeft = ofs.Button(_txtBottomRightTopLeft)
+  ofs.SameLine()
+  btnTopLeftBottomRight = ofs.Button(_txtTopLeftBottomRight)
 
-  ofs.Text(txtStart)
-  ofs.Tooltip(tooltipTxtStart)
-  btnTopBottom = ofs.Button(txtTopBottom)
-  ofs.SameLine()
-  btnBottomTop = ofs.Button(txtBottomTop)
-  ofs.SameLine()
-  btnRightLeft = ofs.Button(txtRightLeft)
-  ofs.SameLine()
-  btnLeftRight = ofs.Button(txtLeftRight)
-  btnTopRightBottomLeft = ofs.Button(txtTopRightBottomLeft)
-  ofs.SameLine()
-  btnBottomLeftTopRight = ofs.Button(txtBottomLeftTopRight)
-  btnBottomRightTopLeft = ofs.Button(txtBottomRightTopLeft)
-  ofs.SameLine()
-  btnTopLeftBottomRight = ofs.Button(txtTopLeftBottomRight)
-
-  ofs.NewLine()
-  ofs.Text(txtEnd)
-  ofs.Tooltip(tooltipTxtEnd)
-  btnEnd = ofs.Button(txtEnd)
+  ofs.Text(_txtEnd)
+  ofs.Tooltip(_tooltipTxtEnd)
+  btnEnd = ofs.Button(_txtEnd)
 
   if btnTopBottom then
     binding.setStartPoint(0)
@@ -115,17 +123,16 @@ function gui()
     binding.setStartPoint(7)
   elseif btnEnd then
     if not binding.setEndPoint() then
-      print(txtEndFailed)
+      print(_txtEndFailed)
     end
   end
 
-  ofs.NewLine()
-  if ofs.Button(txtExport) then
+  if ofs.Button(_txtExport) then
     local result, message = binding.createChapter()
-    if not result then txtInfo = txtFailed
-    else txtInfo = message end
+    if not result then _txtInfo =_txtFailed
+    else _txtInfo = message end
   end
-  ofs.Text(txtInfo)
+  ofs.Text(_txtInfo)
 end
 
 
@@ -148,7 +155,6 @@ function binding.setStartPoint(dir)
     return false
   end
 
-  print("add")
   script.actions:add(Action.new(time, dir * 10))
   script:commit()
  end
@@ -160,19 +166,20 @@ function binding.setEndPoint()
   -- 前の点があるか確認.
   local closestBefAct = script:closestActionBefore(time)
   if not closestBefAct then
+    print(_txtPreviousChapterNotClosed)
     return false
   end
 
   -- 重なる点があったら警告.
   local closestAct, idx = script:closestAction(time)
   if closestAct and time < closestAct.at + 0.01 and closestAct.at - 0.01 < time then
-    print("Points are too close.")
+    print(_txtPointsTooClose)
     return false
   end
 
-  print(closestBefAct.pos % 10)
   -- 前の点がチャプター開始点か確認
   if closestBefAct.pos % 10 ~= 0 then
+    print(_txtPreviousChapterNotClosed)
     return false
   else 
     script.actions:add(Action.new(time, closestBefAct.pos + 9))
@@ -194,19 +201,6 @@ end
 
 ---チャプターファイルを作成---
 function binding.createChapter()
-
-  local txtChapterNotClosed
-  local txtFileExist
-  if _engMode == false then
-    txtChapterNotClosed = "エラー:チャプターが閉じていません。"
-    txtFileExist = "エラー:同名ファイルが存在するか、保存先に書き込めません。"
-    txtExportFailed = "エラー:保存できませんでした。"
-  else
-    txtChapterNotClosed = "Error: A file with the same name exists or the destination cannot be written to."
-    txtFileExist = "Error: A file with the same name exists."
-    txtExportFailed = "Error: Export failed."
-  end
-
   local script = ofs.Script(ofs.ActiveIdx())
   local chapterStartAt, chapterEndAt, dir = {}, {}, {}
   local lastPos = -1
@@ -224,7 +218,7 @@ function binding.createChapter()
 
   -- チャプターが閉じてない場合
   if #chapterStartAt ~= #chapterEndAt then
-    print(txtChapterNotClosed)
+    print(_txtChapterNotClosed)
     return false
   end
 
@@ -238,7 +232,7 @@ function binding.createChapter()
 
   -- 同名チャプターファイルがある場合
   if (not _chapterOverwrite) and exists(exportFilePath) then
-    print(txtFileExist)
+    print(_txtFileExist)
     return false
   end
 
@@ -250,7 +244,6 @@ function binding.createChapter()
     end
     file:close()
   else
-    print(txtExportFailed)
     print(err)
     return false
   end
