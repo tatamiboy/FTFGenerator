@@ -1,6 +1,6 @@
 from enum import IntEnum
 
-class Targets(IntEnum): #チャプターファイルの目標列、GUIのコンボボックスの値と合わせる.
+class Targets(IntEnum): #GUIのコンボボックスの値と合わせる.
         FACE = 0,
         HAND = 1,
 
