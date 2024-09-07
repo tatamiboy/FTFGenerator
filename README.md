@@ -22,6 +22,7 @@ Python3と必要なライブラリをインストールしてください。
 [Github: kgautam01/DNN-Based-Face-Detection](https://github.com/keyurr2/face-detection/)
 
 ## OFSエクステンションの使い方:
+1. 日本語化する場合は "main.lua" 内の `_lang = "en"` を `_lang = "jp"` に変更してください。
 1. chapter-makerフォルダをOFSのエクステンションフォルダーにコピーし、拡張機能を有効化します。
 1. 拡張機能のウィンドウのボタンでチャプター開始と終了をセットします。
 1. 出力ディレクトリを指定し、保存ボタンを押すと "動画ファイル名.txt" が出力されます。
