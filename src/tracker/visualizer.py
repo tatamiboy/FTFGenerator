@@ -22,17 +22,17 @@ class Visualizer():
         ax.set_xlabel("Time")
         ax.set_ylabel("Position")
         ax.set_title("Tracking Data")
-        ax.plot(time_array, pos_array, 'r-', label="Origin")
+        ax.plot(time_array, pos_array, 'r-', label="Original")
         line, = ax.plot(sampled_points[:, 0], sampled_points[:, 1], 'o-', markersize=3, label="Sampled")
         ax.legend()
         plt.subplots_adjust(left=0.1, bottom=0.25)
-        ax_sample = plt.axes([0.25, 0.1, 0.65, 0.03])
-        sample_slider = Slider(ax_sample, 'Sample Rate', 0.01, 5.0, valinit=self.__sample_epsilon)
+        ax_sample = plt.axes([0.25, 0.12, 0.65, 0.03])
+        sample_slider = Slider(ax_sample, 'Sample Rate', 0, 10, valinit=self.__sample_epsilon)
 
         # OKボタンの追加
-        ax_btn_ok = plt.axes([0.1, 0.05, 0.3, 0.05])
+        ax_btn_ok = plt.axes([0.1, 0.02, 0.3, 0.05])
         btn_ok = Button(ax_btn_ok, 'OK')
-        ax_btn_cancel = plt.axes([0.6, 0.05, 0.3, 0.05])
+        ax_btn_cancel = plt.axes([0.6, 0.02, 0.3, 0.05])
         btn_cancel = Button(ax_btn_cancel, 'Cancel')
 
         # スライダー更新時の動作

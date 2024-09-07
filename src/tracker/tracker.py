@@ -174,7 +174,7 @@ class Tracker :
                 font_height = int(frame.shape[0] / 50) # フォントの高さをフレーム高の1/10に.
                 font_scale = cv2.getFontScaleFromHeight(cv2.FONT_HERSHEY_SIMPLEX, font_height)
                 cv2.putText(frame, f"Direction: {list(Directon.__members__.keys())[direction]}", (10, (font_height + 5)), cv2.FONT_HERSHEY_SIMPLEX, font_scale, settings.FONT_COLOR, 2)
-                cv2.putText(frame, f"Chapter: {idx}", (10, (font_height + 5) * 2), cv2.FONT_HERSHEY_SIMPLEX, font_scale, settings.FONT_COLOR, 2)
+                cv2.putText(frame, f"Chapter: {idx + 1}", (10, (font_height + 5) * 2), cv2.FONT_HERSHEY_SIMPLEX, font_scale, settings.FONT_COLOR, 2)
                 cv2.putText(frame, f"Frame: {current_frame_count} / {frame_count}", (10, (font_height + 5) * 3), cv2.FONT_HERSHEY_SIMPLEX, font_scale, settings.FONT_COLOR, 2)
                 cv2.putText(frame, f"Time: {current_time_sec:.2f} sec", (10, (font_height + 5) * 4), cv2.FONT_HERSHEY_SIMPLEX, font_scale, settings.FONT_COLOR, 2)
                 cv2.putText(frame, "Press \"q\" to stop tracking.", (10, (font_height + 5) * 5), cv2.FONT_HERSHEY_SIMPLEX, font_scale, settings.FONT_COLOR, 2)

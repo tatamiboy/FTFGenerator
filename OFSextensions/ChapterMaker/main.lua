@@ -4,7 +4,7 @@
 _chapterExportDir = os.getenv("HOME")
 _chapterOverwrite = false
 
-  -- 方向指定. FPTFGのインデックスと順番を揃える
+  -- 方向指定. FTFGのインデックスと順番を揃える
 _chapterDirectionIdx = {txtTopBottom,
                         txtBottomTop,
                         txtRightLeft,
@@ -15,7 +15,7 @@ _chapterDirectionIdx = {txtTopBottom,
                         txtTopLeftBottomRight}
 
 ---言語切り替え---
-_lang = "jp"
+_lang = "en" 
 
 ---初期化---
 function init()
@@ -34,8 +34,8 @@ function gui()
     txtExportdir = "保存先"
     txtOverwrite = "上書きする"
     txtExport = "保存"
-    txtStart = "チャプター開始(100-0):"
-    txtEnd = "チャプター終了:"
+    txtStart = "チャプター開始(100-0)"
+    txtEnd = "チャプター終了"
     txtEndFailed = "チャプター終了を設定できませんでした。チャプター開始が正しくありません。"
     txtTopBottom = "上-下"
     txtBottomTop = "下-上"
@@ -54,8 +54,8 @@ function gui()
     txtExportdir = "Export destination"
     txtOverwrite = "Overwrite if existing."
     txtExport = "Export"
-    txtStart = "Chapter start(100-0):"
-    txtEnd = "Chapter end:"
+    txtStart = "Chapter start(100-0)"
+    txtEnd = "Chapter end"
     txtEndFailed = "Could not set chapter end. Bad chapter start."
     txtTopBottom = "Top-Bottom"
     txtBottomTop = "Bottom-Top"
@@ -71,7 +71,7 @@ function gui()
     tooltipTxtEnd = "Sets the chapter end at the current position."
   end
 
-  ofs.Text(txt1)
+  ofs.Text(txtTitle)
   ofs.Tooltip(tooltipTxt)
   _chapterExportDir = ofs.Input(txtExportdir, _chapterExportDir)
   _chapterOverwrite = ofs.Checkbox(txtOverwrite, _chapterOverwrite)
@@ -88,7 +88,6 @@ function gui()
   btnTopRightBottomLeft = ofs.Button(txtTopRightBottomLeft)
   ofs.SameLine()
   btnBottomLeftTopRight = ofs.Button(txtBottomLeftTopRight)
-  ofs.SameLine()
   btnBottomRightTopLeft = ofs.Button(txtBottomRightTopLeft)
   ofs.SameLine()
   btnTopLeftBottomRight = ofs.Button(txtTopLeftBottomRight)
