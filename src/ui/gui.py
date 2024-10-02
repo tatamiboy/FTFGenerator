@@ -49,7 +49,7 @@ class GUI() :
         video_wrapper.pack(fill="x")
         video_label = tk.Label(video_wrapper, text=TEXT["videoFile"], width=10)
         video_label.pack(side="left", padx=10)
-        video_txt = tk.Entry(video_wrapper, state="readonly", textvariable=self.__sv_video, bg="blue")
+        video_txt = tk.Entry(video_wrapper, state="readonly", textvariable=self.__sv_video)
         video_txt.pack(side="left",fill="x", expand=True, padx=10)
         chapter_wrapper = tk.Frame(self.__root)
         chapter_wrapper.pack(fill=tk.X)
